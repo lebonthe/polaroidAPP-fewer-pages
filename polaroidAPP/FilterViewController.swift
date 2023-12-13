@@ -116,21 +116,19 @@ class FilterViewController: UIViewController {
     }
     // 調整對比函數，kCIInputContrastKey 標準範圍為 0.25 到 4.0，1.0 代表原始的對比度。
     func contrastFilter(_ input: CIImage, value: Float) -> CIImage?{
-        let filter = CIFilter(name: "CIColorControls")
-
-        filter?.setValue(input, forKey: kCIInputImageKey)
-        filter?.setValue(value, forKey: kCIInputContrastKey)
+        let filter = CIFilter.colorControls()
+        filter.inputImage = input
+        filter.contrast = value
         
-        return filter?.outputImage
+        return filter.outputImage
     }
     // 調整飽和度函數，kCIInputSaturationKey 範圍為 0.0 到 2.0，其中 1.0 表示原始的飽和度。
     func saturationFilter(_ input: CIImage, value: Float) -> CIImage?{
-        let filter = CIFilter(name: "CIColorControls")
+        let filter = CIFilter.colorControls()
+        filter.inputImage = input
+        filter.saturation = value
         
-        filter?.setValue(input, forKey: kCIInputImageKey)
-        filter?.setValue(value, forKey: kCIInputSaturationKey)
-        
-        return filter?.outputImage
+        return filter.outputImage
     }
     // 改變三個 slider 的動作
     @IBAction func changeSliderFilter(_ sender: Any) {
